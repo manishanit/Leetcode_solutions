@@ -1,0 +1,35 @@
+/*this question could have been done easily with an extra array in O(n).However, the approach which
+I have mentioned is without using any extra array and not using any erase function*/
+
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        if(nums.size()==0)
+            return 0;
+        
+        for(int i=0;i<nums.size();i++)
+        {
+            if(nums[i]==val)
+            {
+                int j=i+1;
+                while(j<nums.size() && nums[j]==val)
+                j++;
+                if(j<nums.size() && nums[i]!=nums[j])
+                {
+                    int temp=nums[i];
+                    nums[i]=nums[j];
+                    nums[j]=temp;
+                }
+            }
+        }
+        int count=0;
+        int i=nums.size()-1;
+        while(i>=0 && nums[i]==val)
+        {
+            count++;
+            i--;
+        }
+        
+        return (nums.size()-count); 
+    }
+};
