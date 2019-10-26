@@ -1,0 +1,67 @@
+/*this got accepted with the following:
+Runtime: 16 ms, faster than 21.25% of C++ online submissions for Maximum Depth of Binary Tree.
+Memory Usage: 19.1 MB, less than 98.90% of C++ online submissions for Maximum Depth of Binary Tree.
+*/
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int maxDepth(TreeNode* root) {
+        if(root==NULL)
+            return 0;
+        queue<TreeNode*> q;
+        q.push(root);
+        int nodeCount=0;
+        int length=0;
+        while(!q.empty())
+        {
+            nodeCount=q.size();
+            while(nodeCount!=0)
+            {
+             TreeNode* temp=q.front();
+              q.pop();
+              if(temp->left!=NULL)
+                  q.push(temp->left);
+              if(temp->right!=NULL)
+                  q.push(temp->right);
+              nodeCount--;
+            }
+            length++;
+        }
+        return length;
+    }
+};
+
+
+/*Another Approach*/
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int maxDepth(TreeNode* root) {
+        if(root==NULL)
+            return 0;
+        
+        int lDepth=root->left?maxDepth(root->left):0;
+        int rDepth=root->right?maxDepth(root->right):0;
+        if(lDepth>rDepth)
+            return (lDepth+1);
+        else
+            return (rDepth+1);
+    }
+};
