@@ -1,0 +1,25 @@
+/*this code got accepted in the leet code with the following:
+Runtime: 0 ms, faster than 100.00% of C++ online submissions for Pascal's Triangle.
+Memory Usage: 8.6 MB, less than 100.00% of C++ online submissions for Pascal's Triangle.
+*/
+
+class Solution {
+public:
+    vector<vector<int>> generate(int numRows) {
+        vector<vector<int>> v;
+        for(int i=1;i<=numRows;i++)
+        {
+            vector<int> temp;
+            for(int j=1;j<=i;j++)
+                temp.push_back(1);
+            v.push_back(temp);
+        }
+
+        for(int i=2;i<numRows;i++)
+        {
+            for(int j=1;j<i;j++)
+                v[i][j]=v[i-1][j-1]+v[i-1][j];
+        }
+        return v;
+    }
+};
