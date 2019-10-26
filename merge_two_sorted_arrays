@@ -1,0 +1,69 @@
+/*Approach 1*/
+class Solution {
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        int i=0,j=0,count=0;
+        while(i<(m+count) && j<n)
+        {
+            if(nums1[i]<=nums2[j])
+                i++;
+            else
+            {
+                count++;
+                for(int k=(m+count-1);k>i;k--)
+                    nums1[k]=nums1[k-1];
+                nums1[i]=nums2[j];
+                j++;
+                i++;
+            }
+        }
+        while(j<n)
+        {
+            nums1[i]=nums2[j];
+            i++;
+            j++;
+        }
+    }
+};
+
+/*Approach 2*/
+
+/* this got accepted for the following:
+Runtime: 4 ms, faster than 84.67% of C++ online submissions for Merge Sorted Array.
+Memory Usage: 8.7 MB, less than 80.43% of C++ online submissions for Merge Sorted Array.
+*/
+
+class Solution {
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+       int i=m-1;
+       int j=n-1;
+       int last_index=m+n-1;
+        while(i>=0 && j>=0)
+        {
+                if(nums1[i]>=nums2[j])
+                {
+                    nums1[last_index]=nums1[i];
+                    i--;
+                }
+                else if(nums1[i]<nums2[j])
+                {
+                    nums1[last_index]=nums2[j];
+                    j--;
+                }
+            last_index--;
+        }
+        while(i>=0)
+        {
+            nums1[last_index]=nums1[i];
+            i--;
+            last_index--;
+        }
+        while(j>=0)
+        {
+            nums1[last_index]=nums2[j];
+            j--;
+            last_index--;
+        }
+    }
+};
