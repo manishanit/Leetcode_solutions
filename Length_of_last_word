@@ -1,0 +1,27 @@
+/* I have used the approach of starting from the end of the string
+This code got accepted with Runtime: 0 ms, faster than 100.00% of 
+C++ online submissions for Length of Last Word.
+Memory Usage: 8.8 MB, less than 77.78% of C++ online submissions 
+for Length of Last Word.*/
+
+class Solution {
+public:
+    int lengthOfLastWord(string s) {
+       if(s.length()==0)
+           return 0;
+        int i=s.length()-1;
+        int length=0;
+        while(i>=0)
+        {
+            if(s[i]!=' ')
+                length++;
+            else if(s[i]==' ')
+            {
+                if(length>0)
+                    break;
+            }
+            i--;
+        }
+        return length;
+    }
+};
