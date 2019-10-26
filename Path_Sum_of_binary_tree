@@ -1,0 +1,31 @@
+/*Accepted in the leetcode with the following:
+Runtime: 8 ms, faster than 96.23% of C++ online submissions for Path Sum.
+Memory Usage: 19.9 MB, less than 85.42% of C++ online submissions for Path Sum.
+*/
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+
+    bool hasPathSum(TreeNode* root, int sum) {
+        if(root==NULL)
+         return false;
+        bool ans=false;
+        int subsum=sum-root->val;
+        if(subsum==0 && root->left==NULL && root->right==NULL)
+            return true;
+        if(root->left!=NULL)
+            ans=ans||hasPathSum(root->left,subsum);
+        if(root->right!=NULL)
+            ans=ans||hasPathSum(root->right,subsum);
+        return ans;
+    }
+};
