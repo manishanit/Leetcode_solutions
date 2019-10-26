@@ -1,0 +1,37 @@
+/* This code got accepted in leetcode for Runtime: 0 ms, faster than 100.00% of C++ online submissions for Plus One.
+Memory Usage: 8.5 MB, less than 100.00% of C++ online submissions for Plus One.*/
+
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        int sum,carry;
+        carry=0;
+        for(int i=digits.size()-1;i>=0;i--)
+        {
+            if(i==digits.size()-1)
+            sum=digits[i]+1+carry;
+            else
+            sum=digits[i]+carry;
+            if(sum>9)
+            {
+                digits[i]=sum%10;
+                carry=sum/10;
+            }
+            else if(sum<=9)
+            {
+                digits[i]=sum;
+                carry=0;
+                break;
+            }
+        }
+        if(carry>0)
+        {
+            digits.resize(digits.size()+1);
+            for(int i=digits.size()-2;i>0;i--)
+                digits[i+1]=digits[i];
+            digits[0]=carry;
+            
+        }
+        return digits;
+    }
+};
