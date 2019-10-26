@@ -1,0 +1,27 @@
+/*This code got accepted in leetcode with the following:
+Runtime: 8 ms, faster than 96.07% of C++ online submissions for Minimum Depth of Binary Tree.
+Memory Usage: 19.4 MB, less than 100.00% of C++ online submissions for Minimum Depth of Binary Tree.
+*/
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int minDepth(TreeNode* root) {
+        if(root==NULL)
+            return 0;
+        int lDepth=root->left?minDepth(root->left):0;
+        int rDepth=root->right?minDepth(root->right):0;
+        
+        if((lDepth!=0 && lDepth<rDepth)||rDepth==0)
+            return 1+lDepth;
+        return 1+rDepth;
+    }
+};
