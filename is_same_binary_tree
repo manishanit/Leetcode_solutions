@@ -1,0 +1,24 @@
+/*this code got accepted in leetcode with the following:
+Runtime: 0 ms, faster than 100.00% of C++ online submissions for Same Tree.
+Memory Usage: 9.6 MB, less than 100.00% of C++ online submissions for Same Tree.
+*/
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isSameTree(TreeNode* p, TreeNode* q) {
+        if((p==NULL && q!=NULL)||(q==NULL && p!=NULL))
+            return false;
+        if(p==NULL && q==NULL)
+            return true;
+        
+        return ((p->val==q->val)&&isSameTree(p->left,q->left)&&isSameTree(p->right,q->right)); 
+    }
+};
