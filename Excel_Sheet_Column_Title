@@ -1,0 +1,18 @@
+/*this got accepted in leetcode in the following:
+Runtime: 0 ms, faster than 100.00% of C++ online submissions for Excel Sheet Column Title.
+Memory Usage: 8.1 MB, less than 100.00% of C++ online submissions for Excel Sheet Column Title.
+*/
+
+class Solution {
+public:
+    string convertToTitle(int n) {
+        string s="";
+        while(n>0)
+        {
+            n--;
+            s+=(n%26+'A');
+            n=n/26;
+        }
+        return string(rbegin(s),rend(s));
+    }
+};
