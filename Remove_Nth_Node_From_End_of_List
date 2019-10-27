@@ -1,0 +1,67 @@
+/*Approach 1-> using two traversals*/
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        int length=0;
+        ListNode* ptr=head;
+        while(ptr!=NULL)
+        {
+            ptr=ptr->next;
+            length++;
+        }
+        int count=length-n;
+        ptr=head;
+        ListNode* prev=head;
+        while(count>0)
+        {
+            prev=ptr;
+            ptr=ptr->next;
+            count--;
+        }
+            if(prev->next==NULL)
+                head=NULL;
+            else if(ptr==head)
+                head=head->next;
+            else
+            prev->next=ptr->next;
+        return head;
+    }
+};
+
+/*Approach 2 using single traversal*/
+/*
+Algorithm
+
+The above algorithm could be optimized to one pass. Instead of one pointer, we could use two pointers. 
+The first pointer advances the list by n+1n+1 steps from the beginning, while the second pointer starts 
+from the beginning of the list. Now, both pointers are exactly separated by nn nodes apart. 
+We maintain this constant gap by advancing both pointers together until the first pointer arrives past the last node. 
+The second pointer will be pointing at the nnth node counting from the last. 
+We relink the next pointer of the node referenced by the second pointer to point to the node's next next node.*/
+
+public ListNode removeNthFromEnd(ListNode head, int n) {
+    ListNode dummy = new ListNode(0);
+    dummy.next = head;
+    ListNode first = dummy;
+    ListNode second = dummy;
+    // Advances first pointer so that the gap between first and second is n nodes apart
+    for (int i = 1; i <= n + 1; i++) {
+        first = first.next;
+    }
+    // Move first to the end, maintaining the gap
+    while (first != null) {
+        first = first.next;
+        second = second.next;
+    }
+    second.next = second.next.next;
+    return dummy.next;
+}
