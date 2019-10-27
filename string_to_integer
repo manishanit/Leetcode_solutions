@@ -1,0 +1,40 @@
+class Solution {
+public:
+    int myAtoi(string str) {
+        long long int sum=0;
+        int i;
+        int j=0;
+        while(str[j]==' ')
+            j++;
+        if(!(str[j]>='0' && str[j]<='9'))
+        {
+            if(str[j]!='-' && str[j]!='+')
+                return 0;
+        }
+        if(str[j]=='+' || str[j]=='-')
+            i=j+1;
+        else
+            i=j;
+       for(;i<str.length();i++)
+       {
+           if(str[i]>='0' && str[i]<='9')
+           {
+               
+               sum=sum*10+(str[i]-'0');
+               if(sum>INT_MAX)
+               {
+                if(str[j]=='-')
+                    return INT_MIN;
+                else
+                    return INT_MAX;
+               }
+           }
+           else
+               break;
+       }
+
+        if(str[j]=='-')
+        return (-1*sum);
+        return sum;
+    }
+};
