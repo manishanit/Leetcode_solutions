@@ -1,0 +1,27 @@
+/*This got accepted in the leetcode with the following:
+Runtime: 4 ms, faster than 96.76% of C++ online submissions for Two Sum II - Input array is sorted.
+Memory Usage: 9.6 MB, less than 31.37% of C++ online submissions for Two Sum II - Input array is sorted.
+*/
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& numbers, int target) {
+     int i=0;
+     int j=numbers.size()-1;
+     vector<int> v;
+     while(i<j)
+     {
+         if(numbers[i]+numbers[j]==target)
+         {
+             v.push_back(i+1);
+             v.push_back(j+1);
+             return v;
+         }
+         else if(numbers[i]+numbers[j]>target)
+             j--;
+         else
+             i++;
+     }
+        return v;
+    }
+};
