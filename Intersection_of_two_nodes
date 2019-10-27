@@ -1,0 +1,33 @@
+/*Approach 1
+1) traverse both lists one by one if head1 becomes null then make it point to head2, if head2 becomes null
+make it point to head1.
+2) repeat step1 until pa and pb becomes same
+3) if pa and pb are equal and they are not NULL then we return pa else we return null
+*/
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        ListNode* pA=headA;
+        ListNode* pB=headB;
+        while(pA!=pB)
+        {
+            pA=pA!=NULL?pA->next:headB;
+            pB=pB!=NULL?pB->next:headA;
+        }
+        return (pA==pB && pA!=NULL)?pA:NULL;
+    }
+};
+
+/*Approach 2, find the length of both the lists, now check the last element of both the lists which should be equal if not equal
+then return false, then keep skip=abs(length1-length2)
+skip the larger linkedlist for skip time and then start traversing both one by one till they both are equal*/
+
