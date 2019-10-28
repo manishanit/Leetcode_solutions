@@ -1,0 +1,55 @@
+/*Approach 1*/
+class Solution {
+public:
+    struct pairSum
+    {
+        int sum;
+        int first;
+        int second;
+    };
+    bool noCommon(pairSum a,pairSum b)
+    {
+        if(a.first != b.first && a.first!=b.second && a.second!=b.first
+          && a.second!=b.second)
+            return true;
+        return false;
+    }
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        int length=(nums.size()*(nums.size()+1))/2;
+        vector<pairSum> arr(length);
+        int k=0;
+        vector<vector<int>> v;
+        if(nums.size()==0)
+            return v;
+      for(int i=0;i<nums.size()-1;i++)
+      {
+          for(int j=i+1;j<nums.size();j++)
+          {
+                arr[k].sum=nums[i]+nums[j];
+                arr[k].first=i;
+                arr[k].second=j;
+                k++;
+          }
+      }
+       int total=k;
+       for(int i=0;i<total-1;i++)
+       {
+           for(int j=i+1;j<total;j++)
+           {
+               if((arr[i].sum+arr[j].sum==target) && noCommon(arr[i],arr[j]))
+               {
+                   vector<int> temp;
+                   temp.push_back(nums[arr[i].first]);
+                   temp.push_back(nums[arr[i].second]);
+                   temp.push_back(nums[arr[j].first]);
+                   temp.push_back(nums[arr[j].second]);
+                   sort(temp.begin(),temp.end());
+                   v.push_back(temp);
+               }
+           }
+       }
+        sort(v.begin(),v.end());
+        v.erase(std::unique(v.begin(), v.end()), v.end());
+        return v;
+    }
+};
