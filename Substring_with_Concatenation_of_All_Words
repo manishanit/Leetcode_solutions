@@ -1,0 +1,45 @@
+class Solution {
+public:
+    vector<int> findSubstring(string s, vector<string>& words) {
+         vector<int> res;
+        if(s.length()==0 && words.size()==0)
+            return res;
+        int word_length=0,word_count=0,size_total=0;
+        if(words.size()>0)
+        {
+            word_length=words[0].length();
+            word_count=words.size();
+            size_total=word_length*word_count;
+        }
+        
+        if(size_total>s.length() || words.size()==0)
+            return res;
+        
+
+        
+        unordered_map<string,int> hash_map;
+        for(int i=0;i<word_count;i++)
+            hash_map[words[i]]++;
+        for(int i=0;i<=s.length()-size_total;i++)
+        {
+            unordered_map<string,int> temp(hash_map);
+            int j=i;
+            int count=word_count;
+            while(j<i+size_total)
+            {
+                string word=s.substr(j,word_length);
+                if(temp.find(word)==temp.end()||temp[word]==0)
+                    break;
+                else
+                {
+                    temp[word]--;
+                    count--;
+                }
+                j=j+word_length;
+            }
+            if(count==0)
+                res.push_back(i);
+        }
+        return res;
+    }
+};
