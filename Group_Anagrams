@@ -1,0 +1,69 @@
+/* Approach 1 by me without using hashmap*/
+
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        vector<vector<string>> v;
+        
+        if(strs.size() == 0)
+            return v;
+        for(int i=0;i<strs.size();i++)
+        {
+            if(v.size()==0)
+            {
+                vector<string> temp;
+                temp.push_back(strs[i]);
+                v.push_back(temp);
+            }
+            else
+            {
+                string str1=strs[i];
+                int flag=0;
+                sort(str1.begin(),str1.end());
+                for(int j=0;j<v.size();j++)
+                {
+                    string str2=v[j][0];
+                    sort(str2.begin(),str2.end());
+                    if(str1==str2)
+                    {
+                        v[j].push_back(strs[i]);
+                        flag=1;
+                        break;
+                    }
+                }
+                if(flag==0)
+                {
+                    vector<string> temp;
+                    temp.push_back(strs[i]);                    
+                    v.push_back(temp);
+                }
+            }
+        }
+        return v;
+    }
+};
+
+
+/*Approach 2 which is better using hashmap, here we store the sorted word as key and
+all the ones which map to the same key will be together*/
+
+
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        vector<vector<string>> v;
+        unordered_map<string,vector<string>> map;
+        if(strs.size() == 0)
+            return v;
+        for(int i=0;i<strs.size();i++)
+        {
+            string curr=strs[i];
+            sort(curr.begin(),curr.end());
+            map[curr].push_back(strs[i]);
+        }
+        for(auto& temp: map)
+            v.push_back(temp.second);
+        
+        return v;
+    }
+};
