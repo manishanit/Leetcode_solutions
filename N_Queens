@@ -1,0 +1,44 @@
+class Solution {
+public:
+    bool check(vector<pair<int,int>> points,pair<int,int> temp_pair)
+    {
+        for(int i=0;i<points.size();i++)
+        {
+            if(points[i].first==temp_pair.first || points[i].second==temp_pair.second
+              || abs(points[i].first-temp_pair.first)==abs(points[i].second-temp_pair.second))
+                return false;
+        }
+        return true;
+    }
+    void NQ(vector<vector<string>> &res,vector<string> sol,vector<pair<int,int>> &points
+           ,int n,int row)
+    {
+        if(row==n)
+        {
+            for(int i=0;i<points.size();i++)
+                sol[points[i].first][points[i].second]='Q';
+            res.push_back(sol);
+            return;
+        }
+        
+        for(int i=0;i<n;i++)
+        {
+            pair<int,int> temp_pair=make_pair(row,i);
+            if(check(points,temp_pair))
+            {
+                points.push_back(temp_pair);
+                NQ(res,sol,points,n,row+1);
+                points.pop_back();
+            }
+        }
+        
+    }
+    vector<vector<string>> solveNQueens(int n) {
+        vector<vector<string>> res;
+        string chess_line(n,'.');
+        vector<string> sol(n,chess_line);
+        vector<pair<int,int>> points;
+        NQ(res,sol,points,n,0);
+        return res;;
+    }
+};
