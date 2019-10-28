@@ -1,0 +1,87 @@
+/*Approach 1 Using Hashing*/
+
+class Solution {
+public:
+    struct pairSum
+    {
+        int sum;
+        int first;
+        int second;
+    };
+   int threeSumClosest(vector<int>& nums,int target) {
+      int n=nums.size();
+      int total=(n*(n+1))/2;  
+      pairSum arr[total];
+      int minDiff=INT_MAX;
+      int diff,ans;
+        
+      int k=0;
+      for(int i=0;i<nums.size()-1;i++)
+      {
+          for(int j=i+1;j<nums.size();j++)
+          {
+              arr[k].sum=nums[i]+nums[j];
+              arr[k].first=i;
+              arr[k].second=j;
+              k++;
+          }
+      }
+        
+       for(int i=0;i<nums.size();i++)
+       {
+           for(int j=0;j<k;j++)
+           {
+               if((i!=arr[j].first)&&(i!=arr[j].second))
+               {
+                    diff=abs(nums[i]+nums[arr[j].first]+nums[arr[j].second]-target);
+                   if(diff<minDiff)
+                   {
+                       minDiff=diff;
+                       ans=nums[i]+nums[arr[j].first]+nums[arr[j].second];
+                   }
+               }  
+           }
+       }
+        return ans;
+    }
+};
+
+
+/*Approach 2using two pointers*/
+class Solution {
+public:
+
+   int threeSumClosest(vector<int>& nums,int target) {
+       int max_diff=INT_MAX;
+       int ans;
+        sort(nums.begin(),nums.end());
+       for(int i=0;i<nums.size()-2;i++)
+       {
+           int l=i+1;
+           int r=nums.size()-1;
+           while(l<r)
+           {
+               if(l==i)
+                   l++;
+               else if(r==i)
+                   r--;
+               else
+               {
+                   int diff=abs(nums[i]+nums[l]+nums[r]-target);
+                   if(diff<max_diff)
+                   {
+                       max_diff=diff;
+                       ans=nums[i]+nums[l]+nums[r];
+                   }
+                   if(nums[i]+nums[l]+nums[r]==target)
+                       return target;
+                   else if(nums[i]+nums[l]+nums[r]<target)
+                       l++;
+                   else if(nums[i]+nums[l]+nums[r]>target)
+                        r--;
+                }
+           }
+       }
+       return ans;
+    }
+};
