@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int divide(int dividend, int divisor) {
+      long x=labs(dividend);
+      long y=labs(divisor);
+      int sign=1;
+      if(dividend<0 && divisor<0)
+          sign=1;  
+      else if(dividend<0 || divisor<0)
+          sign=-1;
+      
+        long long quotient=0;
+        long long temp=0;
+        
+        
+        for(int i=31;i>=0;i--)
+        {
+            if(temp+(y<<i)<=x)
+            {
+                temp+=y<<i;
+                quotient|=1<<i;
+            }
+        }
+        if(dividend<0 && divisor<0 && (sign*quotient)==INT_MIN)
+            return INT_MAX;
+        return (sign*quotient);
+    }
+};
