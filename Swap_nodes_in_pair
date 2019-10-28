@@ -1,0 +1,41 @@
+/*This got accepted in leetcode with the following:
+Runtime: 0 ms, faster than 100.00% of C++ online submissions for Swap Nodes in Pairs.
+Memory Usage: 8.5 MB, less than 100.00% of C++ online submissions for Swap Nodes in Pairs.
+*/
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* swapPairs(ListNode* head) {
+     if(head==NULL || head->next==NULL)
+         return head;
+        ListNode* temp=head;
+        head=head->next;
+        temp->next=head->next;
+        head->next=temp;
+         ListNode* ptr=head->next;
+         while(ptr!=NULL)
+        {
+            ListNode* temp1=ptr->next;
+            if(temp1 && temp1->next && ptr->next!=NULL)
+            {
+            ptr->next=temp1->next;
+            temp1->next=ptr->next->next;
+            ptr->next->next=temp1;
+            ptr=ptr->next->next;
+            }
+             else
+                 ptr=ptr->next;
+        }
+
+        return head;
+    }
+};
