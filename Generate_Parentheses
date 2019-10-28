@@ -1,0 +1,31 @@
+/*
+Approach 2: Backtracking
+Intuition and Algorithm
+
+Instead of adding '(' or ')' every time as in Approach 1, let's only add them when we know it will 
+remain a valid sequence. We can do this by keeping track of the number of opening and closing brackets 
+we have placed so far.We can start an opening bracket if we still have one (of n) left to place. 
+And we can start a closing bracket if it would not exceed the number of opening brackets.
+*/
+
+class Solution {
+public:
+
+    void backtrack(vector<string> &ans,string curr,int open,int close,int max)
+    {
+        if(curr.length()==(2*max))
+        {
+            ans.push_back(curr);
+            return;
+        }
+        if(open<max)
+            backtrack(ans,curr+"(",open+1,close,max);
+        if(close<open)
+            backtrack(ans,curr+")",open,close+1,max);
+    }
+    vector<string> generateParenthesis(int n) {
+        vector<string> ans;
+        backtrack(ans,"",0,0,n);
+        return ans;
+    }
+};
