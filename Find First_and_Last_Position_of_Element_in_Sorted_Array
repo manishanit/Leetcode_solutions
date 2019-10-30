@@ -1,0 +1,51 @@
+class Solution {
+public:
+    void binarySearch(vector<int>&nums, int start,int end,vector<int>& v,int target)
+    {
+        if(end<start)
+            return;
+        int mid=(start+end)/2;
+        if(nums[mid]==target)
+        {
+            if(v.empty())
+            {
+                v.resize(2);
+                v[0]=mid;
+                v[1]=mid;
+            }
+            else if(mid<v[0])
+                v[0]=mid;
+            else if(mid>v[1])
+                v[1]=mid;
+
+
+        if(((mid-1)>=start && nums[mid-1]==target) && ((mid+1)<=end && nums[mid+1]==target))
+            {
+               binarySearch(nums,start,mid-1,v,target);
+               binarySearch(nums,mid+1,end,v,target);
+            }
+        else if((mid+1)<=end && nums[mid+1]==target)
+            binarySearch(nums,mid+1,end,v,target);
+        else if((mid-1)>=start && nums[mid-1]==target)
+            binarySearch(nums,start,mid-1,v,target);
+        else if(((mid-1)>=start && nums[mid-1]<target) && ((mid+1)<=end && nums[mid+1]>target))
+                return;
+        }
+        else if(nums[mid]<target)
+            binarySearch(nums,mid+1,end,v,target);
+        else if(nums[mid]>target)
+            binarySearch(nums,start,mid-1,v,target);
+    }
+    vector<int> searchRange(vector<int>& nums, int target) {
+        vector<int> v;
+        if(!nums.empty())
+        binarySearch(nums,0,nums.size()-1,v,target);
+        if(v.empty())
+        {
+            v.resize(2);
+            v[0]=-1;
+            v[1]=-1;
+        }
+        return v;
+    }
+};
