@@ -1,0 +1,32 @@
+/*Problem solved using the backtracking*/
+class Solution {
+public:
+    void traversal(vector<int>& candidates,int target,vector<int>& r,
+                  vector<vector<int>>&v,int i)
+    {
+        if(target<0)
+            return;
+        if(target==0)
+        {
+            v.push_back(r);
+            return;
+        }
+        while(i<candidates.size() && target-candidates[i]>=0)
+        {
+            r.push_back(candidates[i]);
+            traversal(candidates,target-candidates[i],r,v,i);
+            i++;
+            r.pop_back();
+        }
+    }
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+       vector<vector<int>> v;
+       vector<int> r;
+       sort(candidates.begin(),candidates.end());
+       if(candidates.empty())
+           return v;
+        traversal(candidates,target,r,v,0);
+        return v;
+    }
+
+};
