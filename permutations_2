@@ -1,0 +1,38 @@
+class Solution {
+public:
+    void permutations(vector<int>& nums,int index,vector<int> &temp,
+                      vector<bool> &used,vector<vector<int>>& v)
+    {
+        if(index==0)
+        {
+            v.push_back(temp);
+            return;
+        }
+        for(int i=0;i<nums.size();i++)
+        {
+            if(used[i]==false)
+            {
+                used[i]=true;
+                temp.push_back(nums[i]);
+                permutations(nums,index-1,temp,used,v);
+                temp.pop_back();
+                used[i]=false;
+            }
+        }
+        return;
+    }
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        vector<vector<int>> v;
+        if(nums.size()==0)
+            return v;
+        sort(nums.begin(),nums.end());
+        int index=nums.size();
+        vector<int> temp;
+        vector<bool> used(nums.size(),false);
+        permutations(nums,index,temp,used,v);
+        sort(v.begin(),v.end());
+        v.erase(unique(v.begin(),v.end()),v.end());
+        return v;
+    }
+    
+};
