@@ -1,0 +1,27 @@
+class Solution {
+    vector<vector<int>> res;
+public:
+vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        sort(candidates.begin(), candidates.end());
+        
+        vector<int> tmp{};
+        find(candidates, target, 0, tmp);
+        return res;
+        
+}
+    
+void find(vector<int>& candidates, int target, int s, vector<int>& tmp){
+        if(target< 0) return;
+        if(target == 0){
+            res.emplace_back(tmp);
+            return;
+        }
+        
+        for(int i=s; i<candidates.size(); ++i){
+            if( i!=s&& (candidates[i-1] == candidates[i])) continue;
+            tmp.push_back(candidates[i]);
+            find(candidates, target-candidates[i], i+1, tmp);
+            tmp.pop_back();
+        }
+    }
+};
