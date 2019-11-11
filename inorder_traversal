@@ -1,0 +1,67 @@
+/*inorder traversal*/
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+   
+public:
+    void inorder(TreeNode* root,vector<int> &arr)
+    {
+        if(root==NULL)
+            return;
+        if(root->left!=NULL)
+            inorder(root->left,arr);
+        arr.push_back(root->val);
+        if(root->right!=NULL)
+            inorder(root->right,arr);
+    }
+    vector<int> inorderTraversal(TreeNode* root) {
+
+       vector<int> arr={};
+       inorder(root,arr);
+       return arr;
+    }
+};
+
+iterative approach:
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+   
+public:
+
+    vector<int> inorderTraversal(TreeNode* root) {
+
+       vector<int> arr={};
+       stack<TreeNode*> s;
+       TreeNode* curr=root;
+       while(curr!=NULL || !s.empty())
+       {
+           while(curr!=NULL)
+           {
+               s.push(curr);
+               curr=curr->left;
+           }
+           curr=s.top();
+           s.pop();
+           arr.push_back(curr->val);
+           curr=curr->right;
+       }
+       return arr;
+    }
+};
