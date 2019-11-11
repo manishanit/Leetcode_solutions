@@ -1,0 +1,34 @@
+/* Iterative*/
+
+
+class Solution {
+public:
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        vector<vector<int>> allSubset={};
+        int max=1<<nums.size();
+        sort(nums.begin(),nums.end());
+        for(int i=0;i<max;i++)
+        {
+            vector<int> subset=convertIntToSet(i,nums);
+            allSubset.push_back(subset);
+        }
+        sort(allSubset.begin(),allSubset.end());
+        allSubset.erase(unique(allSubset.begin(),allSubset.end()),allSubset.end());
+        return allSubset;
+    }
+    vector<int> convertIntToSet(int x,vector<int>& arr)
+    {
+        vector<int> subset={};
+        int index=0;
+        for(int k=x;k>0;k>>=1)
+        {
+            if(k&1==1)
+                subset.push_back(arr[index]);
+            index++;
+        }
+        return subset;
+    }
+};
+
+
+
