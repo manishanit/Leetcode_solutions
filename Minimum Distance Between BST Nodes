@@ -1,0 +1,69 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+    vector<int> arr;
+public:
+    void inorder(TreeNode* root)
+    {
+        if(root!=NULL)
+        {
+            if(root->left!=NULL)
+                inorder(root->left);
+            arr.push_back(root->val);
+            if(root->right!=NULL)
+                inorder(root->right);
+        }
+    }
+    int minDiffInBST(TreeNode* root) {
+        inorder(root);
+        int minDiff=INT_MAX;
+        for(int i=0;i<arr.size()-1;i++)
+        {
+            if(arr[i+1]-arr[i]<minDiff)
+                minDiff=arr[i+1]-arr[i];
+        }
+        return minDiff;
+    }
+};
+
+Solution #2
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+    int ans;
+    TreeNode* prev=NULL;
+public:
+    void inorder(TreeNode* root)
+    {
+        if(root!=NULL)
+        {
+            if(root->left!=NULL)
+                inorder(root->left);
+            if(prev!=NULL)
+                ans=min(root->val-prev->val,ans);
+            prev=root;
+            if(root->right!=NULL)
+                inorder(root->right);
+        }
+    }
+    int minDiffInBST(TreeNode* root) {
+        ans=INT_MAX;
+        inorder(root);
+        return ans;
+    }
+};
