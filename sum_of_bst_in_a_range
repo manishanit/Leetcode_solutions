@@ -1,0 +1,67 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+    int sum;
+public:
+    void inorder(TreeNode* root,int L,int R)
+    {
+        if(root!=NULL)
+        {
+        if(root->val>=L && root->val<=R)
+            sum+=root->val;
+        if(root->val>L)
+            inorder(root->left,L,R);
+        if(root->val<R)
+            inorder(root->right,L,R);
+        }
+    }
+    int rangeSumBST(TreeNode* root, int L, int R) {
+        sum=0;
+        inorder(root,L,R);
+        return sum;
+    }
+};
+
+/*using stack*/
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+    
+public:
+
+    int rangeSumBST(TreeNode* root, int L, int R) {
+        int ans=0;
+        stack<TreeNode*> s;
+        s.push(root);
+        while(!s.empty())
+        {
+            TreeNode* node=s.top();
+            s.pop();
+            if(node!=NULL)
+            {
+                if(node->val>=L && node->val<=R)
+                    ans+=node->val;
+                if(node->val>L)
+                    s.push(node->left);
+                if(node->val<R)
+                    s.push(node->right);
+            }
+        }
+        return ans;
+    }
+};
