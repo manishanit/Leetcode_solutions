@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int minSwap(vector<int>& A, vector<int>& B) {
+        int n=A.size();
+        vector<int> x(n,0);//no swap array
+        vector<int> y(n,1);//swap array
+        
+        for(int i=1;i<n;i++)
+        {
+            x[i]=y[i]=n;
+            if(A[i-1]<A[i] && B[i-1]<B[i])
+            {
+                x[i]=x[i-1];
+                y[i]=y[i-1]+1;
+            }
+            if(A[i-1]<B[i] && B[i-1]<A[i])
+            {
+                x[i]=min(x[i],y[i-1]);
+                y[i]=min(y[i],x[i-1]+1);
+            }
+        }
+        return min(x[n-1],y[n-1]);
+    }
+};
