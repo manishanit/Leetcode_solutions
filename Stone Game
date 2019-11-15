@@ -1,0 +1,28 @@
+class Solution {
+public:
+    bool helper(vector<int>& nums,int start,int end,int p1,int p2)
+    {
+        if(start==end)
+            return p1>p2?true:false;
+        int sum1,sum2;
+        if((start+end)%2==0)
+        {
+            sum1=p2+nums[start];
+            sum2=p2+nums[end];
+            return helper(nums,start+1,end,p1,sum1)||
+                   helper(nums,start,end-1,p1,sum2);
+        }
+        else
+        {
+            sum1=p1+nums[start];
+            sum2=p1+nums[end];
+            return helper(nums,start+1,end,sum1,p1)||
+                   helper(nums,start,end-1,sum2,p1);            
+        }
+    }
+    bool stoneGame(vector<int>& nums) {
+         int p1=0;
+        int p2=0;
+        return helper(nums,0,nums.size()-1,p1,p2);
+    }
+};
