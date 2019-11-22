@@ -1,0 +1,41 @@
+class Solution {
+public:
+    string addStrings(string num1, string num2) {
+        stack<char> s;
+        if(num1.length()<num2.length())
+        {
+            string temp=num1;
+            num1=num2;
+            num2=temp;
+        }
+        
+        int j=num1.length()-1;
+        int carry=0;
+        for(int i=num2.length()-1;i>=0;i--)
+        {
+            int sum=(num2[i]-'0')+(num1[j]-'0')+carry;
+            carry=sum/10;
+            sum=sum%10;
+            s.push(sum+'0');
+            j--;
+        }
+        
+        for(int k=j;k>=0;k--)
+        {    
+            int sum=(num1[k]-'0')+carry;
+            carry=sum/10;
+            sum=sum%10;
+            s.push(sum+'0');
+        }
+        if(carry!=0)
+            s.push(carry+'0');
+        
+        string s1="";
+        while(!s.empty())
+        {
+            s1+=s.top();
+            s.pop();
+        }
+        return s1;
+    }
+};
