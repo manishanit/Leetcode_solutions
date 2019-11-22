@@ -1,0 +1,44 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+    int preIndex=0;
+public:
+    int search(vector<int>& in,int start,int end,int val)
+    {
+        for(int i=start;i<=end;i++)
+        {
+            if(in[i]==val)
+                return i;
+        }
+        return -1;
+    }
+    TreeNode* helper(vector<int>& pre, vector<int>& in,int start,int end)
+    {
+        if(start>end)
+            return NULL;
+        TreeNode* node=new TreeNode(0);
+        node->val=pre[preIndex];
+        node->left=NULL;
+        node->right=NULL;
+        preIndex++;
+        if(start==end)
+            return node;
+        int inIndex=search(in,start,end,node->val);
+        node->left=helper(pre,in,start,inIndex-1);
+        node->right=helper(pre,in,inIndex+1,end);
+        
+        return node;
+        
+    }
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        TreeNode* root=helper(preorder,inorder,0,inorder.size()-1);
+        return root;
+    }
+};
