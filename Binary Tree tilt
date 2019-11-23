@@ -1,0 +1,54 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int findSum(TreeNode* root)
+    {
+        if(root==NULL)
+            return 0;
+        return root->val+findSum(root->left)+findSum(root->right);
+    }
+    int findTilt(TreeNode* root) {
+        if(root==NULL)
+            return 0;
+        int leftSubTree=findSum(root->left);
+        int rightSubTree=findSum(root->right);
+        return findTilt(root->left)+findTilt(root->right)+abs(leftSubTree-rightSubTree);
+    }
+};
+
+
+#approach 2
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+    int tilt=0;
+public:
+    int findTilt(TreeNode* root)
+    {
+        findSum(root);
+        return tilt;
+    }
+    int findSum(TreeNode* root) {
+        if(root==NULL)
+            return 0;
+        int leftSubTree=findSum(root->left);
+        int rightSubTree=findSum(root->right);
+        tilt+=abs(leftSubTree-rightSubTree);
+        return leftSubTree+rightSubTree+root->val;
+    }
+};
