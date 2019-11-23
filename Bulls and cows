@@ -1,0 +1,31 @@
+class Solution {
+public:
+    string getHint(string secret, string guess) {
+        vector<int> mp(10,0);
+        for(int i=0;i<secret.length();i++)
+            mp[secret[i]-'0']++;
+       
+        int A=0;
+        int B=0;
+        for(int i=0;i<guess.length();i++)
+        {
+            if(secret[i]==guess[i])
+            {
+                A++;
+                mp[secret[i]-'0']--;
+            }
+        }
+        for(int i=0;i<guess.length();i++)
+        {
+            if(secret[i]!=guess[i])
+            {
+                if(mp[guess[i]-'0']>0)
+                {
+                    B++;
+                    mp[guess[i]-'0']--;
+                }
+            }
+        }
+        return (to_string(A)+"A"+to_string(B)+"B");
+    }
+};
