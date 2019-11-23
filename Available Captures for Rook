@@ -1,0 +1,64 @@
+class Solution {
+public:
+    int numRookCaptures(vector<vector<char>>& board) {
+        int row=board.size();
+        int col=board[0].size();
+        int rookR=-1;
+        int rookC=-1;
+        for(int i=0;i<row;i++)
+        {
+            for(int j=0;j<col;j++)
+            {
+                if(board[i][j]=='R')
+                {
+                    rookR=i;
+                    rookC=j;
+                    goto label;
+                }
+            }
+        }
+        label:
+        int count=0;
+        for(int i=rookR-1;i>=0;i--)
+        {
+            if(board[i][rookC]=='B')
+                break;
+            else if(board[i][rookC]=='p')
+            {
+                count++;
+                break;
+            }
+        }
+        for(int i=rookR+1;i<row;i++)
+        {
+            if(board[i][rookC]=='B')
+                break;
+            else if(board[i][rookC]=='p')
+            {
+                count++;
+                break;
+            }
+        }
+        for(int j=rookC-1;j>=0;j--)
+        {
+            if(board[rookR][j]=='B')
+                break;
+            else if(board[rookR][j]=='p')
+            {
+                count++;
+                break;
+            }
+        }
+        for(int j=rookC+1;j<col;j++)
+        {
+            if(board[rookR][j]=='B')
+                break;
+            else if(board[rookR][j]=='p')
+            {
+                count++;
+                break;
+            }
+        }
+        return count;
+    }
+};
