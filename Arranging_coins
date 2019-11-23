@@ -1,0 +1,40 @@
+class Solution {
+public:
+    int arrangeCoins(int n) {
+      int i=1;
+      int count=0;
+      while(n>0)
+      {
+          if(n>=i)
+              count++;
+          n-=i;
+          i++;
+      }
+      return count;
+    }
+};
+
+Solution#2 -> binary search -> O(logn)
+
+class Solution {
+public:
+    int arrangeCoins(int n) {
+     int start=0;
+     int end=n;
+     while(start<=end)
+     {
+         int mid=(start+end)/2;
+         long long product=(long long)mid*(mid+1)/2;
+         if(product<n)
+            start=mid+1;
+         else if(product==n)
+             return mid;
+         else
+             end=mid-1;
+     }
+        return (start-1);
+    }
+};
+
+
+
