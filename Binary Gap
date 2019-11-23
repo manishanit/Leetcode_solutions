@@ -1,0 +1,62 @@
+class Solution {
+public:
+    int binaryGap(int N) {
+        string s="";
+        while(N!=1)
+        {
+            int r=N%2;
+            s=to_string(r)+s;
+            N=N/2;
+        }
+        s="1"+s;
+        
+        int start=-1;
+        int end=-1;
+        int maxDistance=0;
+        for(int i=0;i<s.length();i++)
+        {
+            if(s[i]=='1')
+            {
+                if(start==-1)
+                    start=i;
+                else if(end==-1)
+                {
+                    end=i;
+                    maxDistance=end-start;
+                }
+                else if(start!=-1 && end!=-1)
+                {
+                    start=end;
+                    end=i;
+                    if(maxDistance<(end-start))
+                        maxDistance=(end-start);
+                }
+            }
+        }
+        return maxDistance;
+    }
+};
+
+#solution 2
+
+/*
+in one pass
+*/
+
+class Solution {
+public:
+    int binaryGap(int N) {
+        int ans=0;
+        int last=-1;
+        for(int i=0;i<32;i++)
+        {
+            if((N>>i)&1 >0)
+            {
+                if(last>=0)
+                    ans=max(ans,i-last);
+                last=i;
+            }
+        }
+        return ans;
+    }
+};
