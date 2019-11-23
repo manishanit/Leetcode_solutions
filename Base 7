@@ -1,0 +1,27 @@
+/*
+Given an integer, return its base 7 string representation.
+*/
+
+
+class Solution {
+public:
+    string convertToBase7(int num) {
+        int sign;
+        if(num<0)
+            sign=-1;
+        else
+            sign=1;
+        string s="";
+        num=sign*num;
+        while(num>=7)
+        {
+            int r=num%7;
+            s=to_string(r)+s;
+            num=num/7;
+        }
+        s=to_string(num)+s;
+        if(sign==-1)
+            s="-"+s;
+        return s;
+    }
+};
