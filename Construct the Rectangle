@@ -1,0 +1,28 @@
+class Solution {
+public:
+    vector<int> constructRectangle(int area) {
+        int L=sqrt(area);
+        int W=sqrt(area);
+        vector<int> ans;
+        while((L*W)!=area)
+        {
+            if((L*W)<area)
+                L++;
+            else if((L*W)>area)
+                W--;
+                
+        }
+        ans.push_back(L);
+        ans.push_back(W);
+        return ans;
+    }
+};
+
+#approach 2
+class Solution {
+public:
+    vector<int> constructRectangle(int area,int W=0) {
+       for(W=sqrt(area);area%W;W--);
+       return {area/W,W};
+    }
+};
