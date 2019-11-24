@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int bitwiseComplement(int N) {
+        int total_bits;
+        if(N>0)
+            total_bits=(log(N)/log(2))+1;
+        else
+            return 1;
+        int max_no=pow(2,total_bits)-1;
+        N^=max_no;
+        return N;
+    }
+};
