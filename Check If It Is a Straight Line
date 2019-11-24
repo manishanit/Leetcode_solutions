@@ -1,0 +1,48 @@
+class Solution {
+public:
+    bool checkStraightLine(vector<vector<int>>& coordinates) {
+        double xdiff=coordinates[1][0]-coordinates[0][0];
+        double ydiff=coordinates[1][1]-coordinates[0][1];
+        int signx=xdiff>=0?1:-1;
+        int signy=ydiff>=0?1:-1;
+        int totalsign=signy/signx;
+        
+        for(int i=1;i<coordinates.size()-1;i++)
+        {
+            double x=coordinates[i+1][0]-coordinates[i][0];
+            double y=coordinates[i+1][1]-coordinates[i][1];
+            int signx=x>=0?1:-1;
+            int signy=y>=0?1:-1;
+            int signtotal=signy/signx;
+           
+            
+            if((xdiff==0 && x==xdiff)||(ydiff==0 && y==ydiff)
+               ||(xdiff==0 && ydiff==0 && x==0 && y==0)||(xdiff!=0 && x!=0 && (abs(ydiff)/abs(xdiff))==(abs(y)/abs(x)) && totalsign==signtotal))
+                continue;
+            else
+                return false;
+                
+        }
+        return true;
+    }
+};
+
+#Approach 2
+
+class Solution {
+public:
+    bool checkStraightLine(vector<vector<int>>& coordinates) {
+        
+        for(int i=1;i<coordinates.size()-1;i++)
+        {
+           if((coordinates[i][1]-coordinates[i-1][1])*
+              (coordinates[i+1][0]-coordinates[i][0]) ==
+              (coordinates[i][0]-coordinates[i-1][0])*
+              (coordinates[i+1][1]-coordinates[i][1]))
+              continue;
+            else
+              return false;
+        }
+        return true;
+    }
+};
