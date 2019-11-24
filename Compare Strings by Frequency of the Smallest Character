@@ -1,0 +1,85 @@
+class Solution {
+public:
+    vector<int> numSmallerByFrequency(vector<string>& queries, vector<string>& words) {
+        vector<int> result;
+        for(int i=0;i<queries.size();i++)
+        {
+            vector<int> map(26,0);
+            for(int j=0;j<queries[i].length();j++)
+                map[queries[i][j]-'a']++;
+            int freq1=0;
+            for(int j=0;j<26;j++)
+            {
+                if(map[j]>0)
+                {
+                    freq1=map[j];
+                    break;
+                }
+            }
+            int count=0;
+            for(int j=0;j<words.size();j++)
+            {
+                string s=words[j];
+                vector<int> map1(26,0);
+                for(int k=0;k<s.length();k++)
+                    map1[s[k]-'a']++;
+                int freq2=0;
+                for(int k=0;k<26;k++)
+                {
+                    if(map1[k]>0)
+                    {
+                        freq2=map1[k];
+                        break;
+                    }
+                }
+                if(freq2>freq1)
+                    count++;
+            }
+            result.push_back(count);
+        }
+        return result;
+    }
+};
+
+
+#better approach
+
+class Solution {
+public:
+    int freq(string s)
+    {
+        vector<int> map(26,0);
+        for(int j=0;j<s.length();j++)
+            map[s[j]-'a']++;
+        for(int j=0;j<26;j++)
+        {
+            if(map[j]>0)
+                return map[j];
+        }
+        return 0;
+    }
+    
+    
+    vector<int> numSmallerByFrequency(vector<string>& queries, vector<string>& words) {
+        vector<int> result;
+        vector<int> freqQuery(queries.size(),0);
+        vector<int> freqWords(words.size(),0);
+        for(int i=0;i<queries.size();i++)
+            freqQuery[i]=freq(queries[i]);
+        
+        for(int i=0;i<words.size();i++)
+            freqWords[i]=freq(words[i]);
+            
+        for(int i=0;i<queries.size();i++)
+        {
+            int count=0;
+            for(int j=0;j<words.size();j++)
+            {
+                if(freqQuery[i]<freqWords[j])
+                    count++;
+            }
+            result.push_back(count);
+        }
+        return result;
+    }
+};
