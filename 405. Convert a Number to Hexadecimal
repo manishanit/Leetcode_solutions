@@ -1,0 +1,21 @@
+class Solution {
+public:
+    string toHex(int num) {
+        if(num==0)
+            return "0";
+        
+        unsigned int temp=num;
+        string s="";
+        while(temp>0)
+        {
+            int d=temp%16;
+            if(d>9)
+                s=string(1,'a'+d-10)+s;
+            else
+                s=string(1,'0' + d)+s;
+            temp=temp/16;
+        }
+        return s;
+        
+    }
+};
