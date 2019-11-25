@@ -1,0 +1,29 @@
+class Solution {
+public:
+    bool isLeapYear(int year)
+    {
+        if((year%4==0 && year%100!=0)||year%400==0)
+            return true;
+        else
+            return false;
+    }
+    string dayOfTheWeek(int day, int month, int year) {
+         int totaldays=0;
+         totaldays+=(year-1970)*365;
+         for(int i=1972;i<year;i+=4)
+         {
+             if(isLeapYear(i))
+                 totaldays++;
+         }
+         int monthdays[]={31,28,31,30,31,30,31,31,30,31,30,31};
+         for(int i=1;i<month;i++)
+             totaldays+=monthdays[i-1];
+
+        totaldays+=day;
+        if(isLeapYear(year) && month>2)
+            totaldays++;
+        string weekdays[]={"Wednesday","Thursday","Friday","Saturday",
+                          "Sunday","Monday","Tuesday"};
+        return weekdays[totaldays%7];
+    }
+};
