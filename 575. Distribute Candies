@@ -1,0 +1,41 @@
+class Solution {
+public:
+    int distributeCandies(vector<int>& candies) {
+        unordered_map<int,int> map;
+        for(int i=0;i<candies.size();i++)
+        {
+            if(map.find(candies[i])!=map.end())
+                map[candies[i]]++;
+            else
+                map.insert(make_pair(candies[i],1));
+        }
+        int total_candies=candies.size()/2;
+        int kinds=0;
+        auto itr=map.begin();
+        while(itr!=map.end() && total_candies!=0)
+        {
+            total_candies--;
+            itr++;
+            kinds++;
+        }
+        return kinds;
+    }
+};
+
+#formatted approach
+
+class Solution {
+public:
+    int distributeCandies(vector<int>& candies) {
+        unordered_map<int,int> map;
+        for(int i=0;i<candies.size();i++)
+        {
+            if(map.find(candies[i])!=map.end())
+                map[candies[i]]++;
+            else
+                map.insert(make_pair(candies[i],1));
+        }
+        
+        return min(candies.size()/2,map.size());
+    }
+};
