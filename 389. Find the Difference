@@ -1,0 +1,32 @@
+class Solution {
+public:
+    char findTheDifference(string s, string t) {
+        vector<int>freq(26,0);
+        for(int i=0;i<s.length();i++)
+            freq[s[i]-'a']++;
+        int i;
+        for(i=0;i<t.length();i++)
+        {
+            if(freq[t[i]-'a']>0)
+                freq[t[i]-'a']--;
+            else
+                break;
+        }
+        return t[i];
+    }
+};
+
+#approach 2
+
+
+class Solution {
+public:
+    char findTheDifference(string s, string t) {
+        char v=0;
+        for(int i=0;i<s.length();i++)
+            v^=s[i];
+        for(int i=0;i<t.length();i++)
+            v^=t[i];
+        return v;
+    }
+};
