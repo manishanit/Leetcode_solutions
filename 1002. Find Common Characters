@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<string> commonChars(vector<string>& A) {
+       int count[26]={0};
+       int count_tmp[26]={0};
+       for(int i=0;i<A[0].length();i++)
+           count[A[0][i]-'a']++;
+       for(int i=1;i<A.size();i++)
+       {
+           for(int j=0;j<A[i].length();j++)
+               count_tmp[A[i][j]-'a']++;
+           for(int j=0;j<26;j++)
+           {
+               count[j]=min(count[j],count_tmp[j]);
+               count_tmp[j]=0;
+           }
+       }
+        vector<string> result;
+        for(int i=0;i<26;i++)
+        {
+            for(int j=0;j<count[i];j++)
+                result.push_back(string(1,i+'a'));
+        }
+        return result;
+    }
+};
