@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int countCharacters(vector<string>& words, string chars) {
+       unordered_map<char,int> map;
+       for(int i=0;i<chars.length();i++)
+       {
+           if(map.find(chars[i])!=map.end())
+               map[chars[i]]++;
+           else
+               map[chars[i]]=1;
+       }
+        int j;
+        int count=0;
+        for(int i=0;i<words.size();i++)
+        {
+            unordered_map<char,int> map_tmp=map;
+            for(j=0;j<words[i].length();j++)
+            {
+                if(map_tmp.find(words[i][j])!=map.end() && map_tmp[words[i][j]]>0)
+                    map_tmp[words[i][j]]--;
+                else
+                    break;
+            }
+            if(j==words[i].length())
+                count+=words[i].length();
+        }
+        return count;
+    }
+};
