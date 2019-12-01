@@ -1,0 +1,55 @@
+class Solution {
+public:
+    string tictactoe(vector<vector<int>>& moves) {
+        vector<vector<char>> ticTacToe(3,vector<char>(3));
+        for(int i=0;i<3;i++)
+        {
+            for(int j=0;j<3;j++)
+                ticTacToe[i][j]='.';
+        }
+        for(int i=0;i<moves.size();i++)
+        {
+            if(i%2==0)
+                ticTacToe[moves[i][0]][moves[i][1]]='X';
+            else
+                ticTacToe[moves[i][0]][moves[i][1]]='O';
+        }
+        for(int i=0;i<3;i++)
+        {
+           if(ticTacToe[i][0]==ticTacToe[i][1] && ticTacToe[i][1]==ticTacToe[i][2])
+           {
+               if(ticTacToe[i][0]=='X')
+                   return "A";
+               else if(ticTacToe[i][0]=='O')
+                   return "B";
+           }
+        }
+        for(int j=0;j<3;j++)
+        {
+           if(ticTacToe[0][j]==ticTacToe[1][j] && ticTacToe[1][j]==ticTacToe[2][j])
+           {
+               if(ticTacToe[0][j]=='X')
+                   return "A";
+               else if(ticTacToe[0][j]=='O')
+                   return "B";
+           }            
+        }
+        if(ticTacToe[0][0]==ticTacToe[1][1] && ticTacToe[1][1]==ticTacToe[2][2])
+        {
+            if(ticTacToe[0][0]=='X')
+                return "A";
+            else if(ticTacToe[0][0]=='O')
+                return "B";
+        }
+        if(ticTacToe[0][2]==ticTacToe[1][1] && ticTacToe[1][1]==ticTacToe[2][0])
+        {
+            if(ticTacToe[0][2]=='X')
+                return "A";
+            else if(ticTacToe[0][2]=='O')
+                return "B";
+        }
+        if(moves.size()==9)
+            return "Draw";
+        return "Pending";
+    }
+};
