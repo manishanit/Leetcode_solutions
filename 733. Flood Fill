@@ -1,0 +1,28 @@
+class Solution {
+public:
+    bool isValid(int r,int c,int row,int col)
+    {
+        if((r>=0 && r<row) && (c>=0 && c<col) )
+            return true;
+        return false;
+    }
+    void floodFill(vector<vector<int>>& image, int sr, int sc, int oc,int nc)
+    {
+        if(isValid(sr,sc,image.size(),image[0].size()) && image[sr][sc]==oc)
+        {
+            image[sr][sc]=nc;
+            floodFill(image,sr-1,sc,oc,nc);
+            floodFill(image,sr,sc-1,oc,nc);
+            floodFill(image,sr,sc+1,oc,nc);
+            floodFill(image,sr+1,sc,oc,nc);
+        }
+        else
+            return;
+    }
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
+        int oldColour=image[sr][sc];
+        if(oldColour!=newColor)
+            floodFill(image,sr,sc,oldColour,newColor);
+        return image;
+    }
+};
