@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int gcd(int a,int b)
+    {
+        while(a!=b)
+        {
+            if(a>b)
+                a=a-b;
+            else
+                b=b-a;
+        }
+        return a;
+    }
+    string gcdOfStrings(string str1, string str2) {
+        int len1=str1.length();
+        int len2=str2.length();
+        int possible_greatest_length=0;
+        if(len1>len2)
+            possible_greatest_length=gcd(len1,len2);
+        else
+            possible_greatest_length=gcd(len2,len1);
+        
+        string s1="";
+        for(int i=0;i<str1.length()&& i<str2.length() && i<possible_greatest_length;i++)
+        {
+            if(str1[i]==str2[i])
+                s1+=str1[i];
+            else
+                break;
+        }
+        
+        if(s1=="")
+            return s1;
+        
+        for(int i=0;i<str1.length();i++)
+        {
+            if(str1[i]!=s1[i%s1.length()])
+                return "";
+        }
+        return s1;
+    }
+};
