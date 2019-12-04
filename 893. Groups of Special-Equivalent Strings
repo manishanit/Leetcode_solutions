@@ -1,0 +1,14 @@
+class Solution {
+public:
+    int numSpecialEquivGroups(vector<string>& A) {
+       set<string> seen;
+       for(string s:A)
+       {
+           string count(52,'a');
+           for(int j=0;j<s.length();j++)
+               count[s[j]-'a'+26*(j%2)]++;
+           seen.insert(count);
+       }
+        return seen.size();
+    }
+};
