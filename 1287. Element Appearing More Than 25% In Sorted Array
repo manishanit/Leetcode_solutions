@@ -1,0 +1,28 @@
+#approach 1
+
+class Solution {
+public:
+    int findSpecialInteger(vector<int>& arr) {
+        int no_of_times=arr.size()/4;
+        int ans=arr[0];
+        int count=0;
+        for(int i=1;i<arr.size()-no_of_times;i++)
+        {
+            if(ans==arr[i])
+            {
+                count++;
+                if(count>no_of_times)
+                    break;
+            }
+            else if(ans!=arr[i])
+            {
+                ans=arr[i];
+                count=1;
+            }
+        }
+        return ans;
+    }
+};
+
+#approach 2
+
