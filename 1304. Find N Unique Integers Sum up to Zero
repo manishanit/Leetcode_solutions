@@ -1,0 +1,20 @@
+class Solution {
+public:
+    vector<int> sumZero(int n) {
+        int mid=n/2;
+        vector<int> res;
+        if(n%2!=0)
+        {
+            for(int i=(-1*mid);i<=mid;i++)
+                res.push_back(i);
+        }
+        else
+        {
+            for(int i=(-1*mid);i<=-1;i++)
+                res.push_back(i);
+            for(int i=1;i<=mid;i++)
+                res.push_back(i);
+        }
+        return res;
+    }
+};
