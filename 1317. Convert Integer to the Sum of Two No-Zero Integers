@@ -1,0 +1,33 @@
+class Solution {
+public:
+    std::vector<int> getNoZeroIntegers(int n) 
+    {
+        std::vector<int> res;
+
+        for(size_t i = 1; i < n; i++)
+        {   
+            std::string s1 = std::to_string(i);
+            std::sort(s1.begin(), s1.end());
+
+            if(std::binary_search(s1.begin(), s1.end(), '0')) 
+            {
+                continue;
+            }
+
+            std::string s2 = std::to_string(n-i);
+            std::sort(s2.begin(), s2.end());
+
+            if(std::binary_search(s2.begin(), s2.end(), '0')) 
+            {
+                continue;
+            }
+
+            res.push_back(i);
+            res.push_back(n-i);
+
+            break;
+        }
+
+        return res;
+    }
+};
